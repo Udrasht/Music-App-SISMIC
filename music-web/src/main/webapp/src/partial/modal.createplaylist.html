@@ -1,0 +1,23 @@
+<div class="modal-header">
+  <h3 class="modal-title">New playlist</h3>
+</div>
+<form role="form" novalidate class="form-horizontal">
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="inputPlaylistName" class="col-sm-2 control-label">Names</label>
+      <div class="col-sm-10">
+        <input type="text" id="inputPlaylistName" class="form-control" ng-model="name" ng-required />
+        <br/>
+        <label class="col-sm-3 control-label" for="playlistPrivacy">Playlist Type </label>    
+    		<input type="radio" id="private" name="private" value="private" ng-model="playlistPrivacy"> Private
+    		<input type="radio" id="public" name="public" value="public" ng-model="playlistPrivacy"> Public
+  		 	<input type="radio" id="collaborative" name="collaborative" value="collaborative" ng-model="playlistPrivacy">Collaborative
+  			
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok(name,playlistPrivacy)">OK</button>
+    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+  </div>
+</form>

@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="col-md-3">
+    <div class="panel panel-danger" ng-init="warningVisible = true" ng-show="warningVisible && userInfo.is_default_password">
+      <div class="panel-body text-danger text-center">
+        <span class="glyphicon glyphicon-warning-sign"></span>
+        You haven't changed your default admin password. Secure your server by changing the default password now.
+        <a href="" ng-click="warningVisible = false">Dismiss</a>
+      </div>
+    </div>
+
+    <div class="panel">
+      <button ng-if="!partyMode" class="btn btn-primary btn-block" title="Start listening to your prefered music endlessly" ng-click="startPartyMode()">
+        <span class="glyphicon glyphicon-glass"></span>
+        Get the party started!
+      </button>
+      <button ng-if="partyMode" class="btn btn-danger btn-block" ng-click="stopPartyMode()">
+        <span class="glyphicon glyphicon-stop"></span>
+        Stop party mode now
+      </button>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="list-group">
+        <a class="list-group-item" ng-class="{ active: $uiRoute }" ui-route="/playing" href="#/playing">
+          <span class="glyphicon glyphicon-play"></span>
+          Now playing
+        </a>
+        <a class="list-group-item"
+           ng-class="{ active: $uiRoute || $state.current.name == 'main.album' || $state.current.name == 'main.search'
+              || $state.current.name == 'main.albumart' || $state.current.name == 'main.artist' }"
+           ui-route="/music/.*" href="#/music/albums/:">
+          <span class="glyphicon glyphicon-th"></span>
+          My music
+        </a>
+        <a class="list-group-item" ng-class="{ active: $uiRoute }" ui-route="/add/.*" href="#/add/upload">
+          <span class="glyphicon glyphicon-plus"></span>
+          Add music
+        </a>
+      </div>
+    </div>
+
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#/searchspotifylastfm">Search on Spotify/Lastfm </a></li>
+      <li><a href="#/recommendspotifylastfm">Get recommendation from Spotify/Lastfm </a></li>
+      <li><a href="#/music/albums/:latest">Latest albums</a></li>
+      <li><a href="#/music/albums/:playcount">Most listened albums</a></li>
+      
+      <li class="playlist-list-menu">
+        <div class="form-group has-feedback" ng-class="{ 'has-warning': playlistSearch }">
+          <input title="Search in playlists" ng-init="playlistSearch = ''" placeholder="Search in playlist" ng-model="playlistSearch" type="text" class="form-control" />
+          <span class="glyphicon glyphicon-search form-control-feedback"></span>
+        </div>
+      </li>
+      <label>My Personel Playlists</label>
+      <li ng-if="personelPlaylists.length == 0" class="text-center text-muted">No playlist</li>
+      <li bindonce ng-repeat="playlist in personelPlaylists | filter: { name: playlistSearch }">
+        <a ng-href="#/playlist/{{ playlist.id }}" bo-text="playlist.name"></a>
+      </li>
+      
+      <label>Public Playlists</label>
+      <li ng-if="publicPlaylists.length == 0" class="text-center text-muted">No playlist</li>
+      <li bindonce ng-repeat="playlist in publicPlaylists | filter: { name: playlistSearch }">
+        <a ng-href="#/playlist/{{ playlist.id }}" bo-text="playlist.name"></a>
+      </li>
+      
+      <label>Collaborative Playlists</label>
+      <li ng-if="collaborativePlaylists.length == 0" class="text-center text-muted">No playlist</li>
+      <li bindonce ng-repeat="playlist in collaborativePlaylists | filter: { name: playlistSearch }">
+        <a ng-href="#/playlist/{{ playlist.id }}" bo-text="playlist.name"></a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="col-md-9">
+    <div ui-view="content"></div>
+  </div>
+</div>

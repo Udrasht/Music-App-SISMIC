@@ -1,0 +1,86 @@
+<h3>Last.fm scrobbling</h3>
+<div class="well" ng-show="userInfo.lastfm_connected">
+  <p class="text-info">Your account is linked to Last.fm</p>
+
+  <div class="pull-right">
+    <button class="btn btn-danger" ng-click="disconnectLastFm()">
+      <span class="glyphicon glyphicon-log-out"></span>
+    </button>
+  </div>
+
+  <div class="media" ng-show="lastFm">
+    <a class="pull-left" ng-href="{{ lastFm.url }}" target="_blank" ng-if="lastFm.image_url">
+      <img class="media-object" ng-src="{{ lastFm.image_url }}" alt="{{ lastFm.username }}">
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading"><a ng-href="{{ lastFm.url }}" target="_blank">{{ lastFm.username }}</a></h4>
+      Scrobbled {{ lastFm.play_count }} songs since {{ lastFm.registered_date | date: 'mediumDate' }}.
+    </div>
+  </div>
+</div>
+
+<div ng-show="!userInfo.lastfm_connected">
+  <p class="text-danger">Last.fm username and password won't be stored.</p>
+  <form class="form-horizontal" name="lastFmForm" novalidate>
+    <div class="form-group" ng-class="{ success: lastFmForm.username.$valid }">
+      <label class="col-sm-2 control-label" for="inputLastfmUsername">Last.fm username</label>
+      <div class="col-sm-7">
+        <input name="username" type="text" id="inputLastfmUsername" required class="form-control"
+               placeholder="Last.fm username" ng-model="lastfm.username" autocomplete="off" />
+      </div>
+    </div>
+
+    <div class="form-group" ng-class="{ success: lastFmForm.password.$valid }">
+      <label class="col-sm-2 control-label" for="inputLastfmPassword">Last.fm password</label>
+      <div class="col-sm-7">
+        <input name="password" type="password" id="inputLastfmPassword" required class="form-control"
+               placeholder="Last.fm password" ng-model="lastfm.password" autocomplete="off" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-primary" ng-click="connectLastFm()" ng-disabled="!lastFmForm.$valid">
+          <span class="glyphicon glyphicon glyphicon-flash"></span> Connect
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<h3>Change password</h3>
+<form class="form-horizontal" name="editUserForm" novalidate ng-click="editUserForm.submitted = true">
+  <div class="form-group" ng-class="{ 'has-error': !editUserForm.password.$valid && editUserForm.submitted, success: editUserForm.password.$valid }">
+    <label class="col-sm-2 control-label" for="inputPassword">Password</label>
+    <div class="col-sm-7">
+      <input name="password" type="password" id="inputPassword" required class="form-control"
+        ng-minlength="8" ng-maxlength="50" placeholder="Password" ng-model="user.password" />
+    </div>
+    <div class="col-sm-3" ng-show="editUserForm.submitted">
+      <span class="help-block" ng-show="editUserForm.password.$error.required">Required</span>
+      <span class="help-block" ng-show="editUserForm.password.$error.minlength">Too short</span>
+      <span class="help-block" ng-show="editUserForm.password.$error.maxlength">Too long</span>
+    </div>
+  </div>
+
+  <div class="form-group" ng-class="{ 'has-error': !editUserForm.passwordconfirm.$valid && editUserForm.submitted, success: editUserForm.passwordconfirm.$valid }">
+    <label class="col-sm-2 control-label" for="inputPasswordConfirm">Password (confirm)</label>
+    <div class="col-sm-7">
+      <input name="passwordconfirm" type="password" id="inputPasswordConfirm" required class="form-control"
+        ui-validate="'$value == user.password'" ui-validate-watch="'user.password'"
+        placeholder="Password (confirm)" ng-model="user.passwordconfirm" />
+    </div>
+    <div class="col-sm-3" ng-show="editUserForm.submitted">
+      <span class="help-block" ng-show="editUserForm.passwordconfirm.$error.validator">Password and password confirmation must match</span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-primary" ng-click="editUser(); editUserForm.submitted = true" ng-disabled="!editUserForm.$valid">
+        <span class="glyphicon glyphicon-pencil"></span> Save
+      </button>
+    </div>
+  </div>
+</form>
+<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{ alert.msg }}</alert>

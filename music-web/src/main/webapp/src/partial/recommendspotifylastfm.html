@@ -1,0 +1,67 @@
+<div>
+  <form class="form-horizontal" name="recommendspotifylastfm" novalidate ></form>    
+    <div class="form-group" >
+
+      <label class="col-sm-2 control-label" for="recommendQueryString">Artists</label>
+      <div class="col-sm-10">
+        <input name="queryString" type="text" id="inputPlaylist" required class="form-control"
+               placeholder="Enter artists separated by comma (,)" ng-model="recommendArtists" autocomplete="off" />
+      </div>
+	<br/>
+	<br/>
+      <label class="col-sm-2 control-label" for="recommendQueryString">Tracks</label>
+      <div class="col-sm-10">
+        <input name="queryString" type="text" id="inputPlaylist" required class="form-control"
+               placeholder="Enter tracks separated by comma (,)" ng-model="recommendTracks" autocomplete="off" />
+      </div>
+    </div>
+   
+	<div class="col-6">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-primary" ng-click="recommendSpotify(recommendArtists,recommendTracks)" >
+          <span class="glyphicon glyphicon glyphicon-flash"></span> Spotify Recommendation
+        </button>
+      </div>
+      <br/><br />
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-primary" ng-click="recommendLastfm(recommendArtists,recommendTracks)" >
+          <span class="glyphicon glyphicon glyphicon-flash"></span> LastFM Recommendation
+        </button>
+      </div>
+      </div>
+      <!-- <h1>LAST FM RECOMMENDATION</h1> -->
+	<div ng-if="recommendData.reqParams.thirdPartyType=='SPOTIFY' && recommendData.reqParams.queryType=='seed_artists'">
+      	<h2>SPOTIFY TRACK RECOMMENDATION RESULTS</h2>
+      	<div ng-repeat="track in recommendData.tracks">
+	    <div style="border: 1px solid #ccc; border-radius: 5px; padding: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center;">
+  		<img src="{{track.albuArt}}" alt="Album Art" style="width: 120px; height: 120px; object-fit: cover; margin-right: 30px;">
+  		<div>
+    	<h3 style="margin: 0; font-size: 1.5rem;">{{track.trackName}}</h3>
+    	<p style="margin: 5px 0 0; font-size: 1.2rem;"> {{track.artist}}</p>
+    	
+		<a href="{{track.previewUrl}}" target="_blank" style="display: block; margin-top: 20px; background-color: green; color: #fff; text-decoration: none; text-align: center; padding: 10px; border-radius: 5px;">Check on Spotify</a> 
+		
+  		</div>
+	 </div>
+	 </div>
+	 </div>
+	 
+	 <div ng-if="recommendData.reqParams.thirdPartyType=='LASTFM'">
+      	<h2>LASTFM TRACK RECOMMENDATION RESULTS</h2>
+      	<div ng-repeat="track in recommendData.tracks">
+	    <div style="border: 1px solid #ccc; border-radius: 5px; padding: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center;">
+  		<img src="img/last-fm-album-art.png" alt="Album Art" style="width: 120px; height: 120px; object-fit: cover; margin-right: 30px;">
+  		<div>
+    	<h3 style="margin: 0; font-size: 1.5rem;">{{track.trackName}}</h3>
+    	<p style="margin: 5px 0 0; font-size: 1.2rem;"> {{track.artist}}</p>
+<!--     	<button style="background-color: #f44336; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; margin-top: 15px;">Play</button> -->
+		 <a href="{{track.trackUrl}}" target="_blank" style="display: block; margin-top: 20px; background-color: red; color: #fff; text-decoration: none; text-align: center; padding: 10px; border-radius: 5px;">Check on LASTFM</a>
+		
+  		</div>
+	 </div>
+	 </div>
+	 </div>
+    </div>
+  </form>
+
+</div>

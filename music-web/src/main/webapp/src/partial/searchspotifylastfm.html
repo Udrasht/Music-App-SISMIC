@@ -1,0 +1,96 @@
+<div>
+  <form class="form-horizontal" name="searchspotifylastfm" novalidate>
+        <div class="form-group" >
+    <div class="col-sm-12">
+      <label class="col-sm-2 control-label" for="searchQueryType">Search Type</label>
+    	<input type="radio" id="artist" name="artist" value="artist" ng-model="searchQueryType">
+  		<label for="album">Artist</label>
+    	<input type="radio" id="track" name="track" value="track" ng-model="searchQueryType">
+  		<label for="track">Track</label>
+  	</div>
+      <label class="col-sm-2 control-label" for="searchQueryString">Search</label>
+      <div class="col-sm-7">
+        <input name="queryString" type="text" id="inputPlaylist" required class="form-control"
+               placeholder="Enter artist/track name" ng-model="searchQueryString" autocomplete="off" />
+      </div>
+    </div>
+
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-primary" ng-click="searchSpotify(searchQueryString)" >
+          <span class="glyphicon glyphicon glyphicon-flash"></span> Search On Spotify
+        </button>
+      </div>
+      
+      <br/><br />
+      
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-primary" ng-click="searchLastfm(searchQueryString)" >
+          <span class="glyphicon glyphicon glyphicon-flash"></span> Search On LastFM
+        </button>
+      </div>
+      
+      <div ng-if="searchData.reqParams.thirdPartyType=='SPOTIFY' && searchData.reqParams.queryType=='track'">
+      	<h2>SPOTIFY TRACK SEARCH RESULTS</h2>
+      	<div ng-repeat="track in searchData.tracks">
+	    <div style="border: 1px solid #ccc; border-radius: 5px; padding: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center;">
+  		<img src="{{track.albumArt}}" alt="Album Art" style="width: 120px; height: 120px; object-fit: cover; margin-right: 30px;">
+  		<div>
+    	<h3 style="margin: 0; font-size: 1.5rem;">{{track.trackName}}</h3>
+    	<p style="margin: 5px 0 0; font-size: 1.2rem;"> {{track.artist}}</p>
+<!--     	<button style="background-color: #f44336; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; margin-top: 15px;">Play</button> -->
+		 <a href="{{track.previewUrl}}" target="_blank" style="display: block; margin-top: 20px; background-color: green; color: #fff; text-decoration: none; text-align: center; padding: 10px; border-radius: 5px;">Check on Spotify</a>
+		
+  		</div>
+	 </div>
+	 </div>
+	 </div>
+	 
+ 	 <div ng-if="searchData.reqParams.thirdPartyType=='SPOTIFY' && searchData.reqParams.queryType=='artist'">
+      	<h2>SPOTIFY ARTIST SEARCH RESULTS</h2>
+      	<div ng-repeat="artist in searchData.artists">
+	    <div style="border: 1px solid #ccc; border-radius: 5px; padding: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center;">
+  		<img src="{{artist.artistImg}}" alt="Album Art" style="width: 120px; height: 120px; object-fit: cover; margin-right: 30px;">
+  		<div>
+    	<h3 style="margin: 0; font-size: 1.5rem;">{{artist.artistName}}</h3>
+    	<!--<p style="margin: 5px 0 0; font-size: 1.2rem;"> {{track.artist}}</p>  -->
+    	<a href="{{artist.spotifyUrl}}" target="_blank" style="display: block; margin-top: 20px; background-color: green; color: #fff; text-decoration: none; text-align: center; padding: 10px; border-radius: 5px;">Check on Spotify</a>
+  		</div>
+	 </div>
+	 </div>
+	 </div>
+	 
+	 <div ng-if="searchData.reqParams.thirdPartyType=='LASTFM' && searchData.reqParams.queryType=='track'">
+      	<h2>LASTFM TRACK SEARCH RESULTS</h2>
+      	<div ng-repeat="track in searchData.tracks">
+	    <div style="border: 1px solid #ccc; border-radius: 5px; padding: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center;">
+  		<img src="img/last-fm-album-art.png" alt="Album Art" style="width: 120px; height: 120px; object-fit: cover; margin-right: 30px;">
+  		<div>
+    	<h3 style="margin: 0; font-size: 1.5rem;">{{track.trackName}}</h3>
+    	<p style="margin: 5px 0 0; font-size: 1.2rem;"> {{track.artistName}}</p>
+    	<a href="{{track.previewUrl}}" target="_blank" style="display: block; margin-top: 20px; background-color: red; color: #fff; text-decoration: none; text-align: center; padding: 10px; border-radius: 5px;">Check on LASTFM</a>
+  		</div>
+	 </div>
+	 </div>
+	 </div>
+	 
+	 <div ng-if="searchData.reqParams.thirdPartyType=='LASTFM' && searchData.reqParams.queryType=='artist'">
+      	<h2>LASTFM ARTIST SEARCH RESULTS</h2>
+      	<div ng-repeat="artist in searchData.artists">
+	    <div style="border: 1px solid #ccc; border-radius: 5px; padding: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center;">
+  		<img src="img/last-fm-album-art.png" alt="Album Art" style="width: 120px; height: 120px; object-fit: cover; margin-right: 30px;">
+  		<div>
+    	<h3 style="margin: 0; font-size: 1.5rem;">{{artist.artistName}}</h3>
+    	<!--<p style="margin: 5px 0 0; font-size: 1.2rem;"> {{track.artist}}</p>  -->
+    	<a href="{{artist.previewUrl}}" target="_blank" style="display: block; margin-top: 20px; background-color: red; color: #fff; text-decoration: none; text-align: center; padding: 10px; border-radius: 5px;">Check on LASTFM</a>
+  		</div>
+	 </div>
+	 </div>
+	 </div>
+	 
+
+	 
+      
+    </div>
+  </form>
+
+</div>

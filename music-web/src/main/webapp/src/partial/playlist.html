@@ -1,0 +1,90 @@
+<div class="panel panel-default" ng-show="playlist">
+  <div class="panel-body">
+    <div class="page-header">
+      <h1>{{ playlist.name }}</h1>
+    </div>
+
+    <div class="btn-toolbar" role="toolbar">
+      <button class="btn btn-link" ng-click="playAllTracks()"><span class="glyphicon glyphicon-play"></span> Play all</button>
+      <button class="btn btn-link" ng-click="shuffleAllTracks()"><span class="glyphicon glyphicon-random"></span> Shuffle</button>
+      <button class="btn btn-link" ng-click="addAllTracks()"><span class="glyphicon glyphicon-plus"></span> Add all</button>
+      <button class="btn btn-link" ng-click="remove()"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+      <button class="btn btn-link" ng-click="spotifyRecommend()"><img src="img/spotify.svg" style="height:20px;" 
+style="width:20px;"/>Spotify Recommendation</button>
+<button class="btn btn-link" ng-click="lastfmRecommend()"><img src="img/last-fm.svg" style="height:20px;" 
+style="width:20px;"/>LastFM Recommendation</button>
+    </div>
+
+    <table class="table table-striped table-playing-tracks">
+      <thead>
+      <tr>
+        <th style="width: 8%;" class="col-md-1"></th>
+        <th>Title</th>
+        <th>Artist</th>
+        <th>Album</th>
+        <th style="width: 8%"><span class="glyphicon glyphicon-time"></span></th>
+        <th style="width: 4%"></th>
+        <th style="width: 4%"></th>
+      </tr>
+      </thead>
+      <tbody ui-sortable="trackSortableOptions">
+      <tr bindonce ng-repeat="track in playlist.tracks" bo-attr bo-attr-data-order="track.order">
+        <td>
+          <span class="handle btn-handle"></span>
+          <span class="play glyphicon glyphicon-play btn-pointer" ng-click="playTrack(track)"></span>
+          <span class="add glyphicon glyphicon-plus btn-pointer" ng-click="addTrack(track)"></span>
+        </td>
+        <td bo-title="track.title" bo-text="track.title"></td>
+        <td bo-title="track.artist.name"><a bo-href="'#/artist/' + track.artist.id" bo-text="track.artist.name"></a></td>
+        <td bo-title="track.album.name"><a bo-href="'#/album/' + track.album.id" bo-text="track.album.name"></a></td>
+        <td title="Played {{ track.play_count }} times">{{ track.length | duration }}</td>
+        <td>
+          <span class="glyphicon btn-pointer btn-like" title="{{ track.liked ? 'Loved' : '' }}" ng-click="toggleLikeTrack(track)"
+            ng-class="{ 'glyphicon-heart': track.liked, 'glyphicon-heart-empty': !track.liked }"></span>
+        </td>
+        <td><span class="remove glyphicon glyphicon-minus btn-pointer" ng-click="removeTrack($index)"></span></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div ng-if="recommendedTracks.reqParams.thirdPartyType=='SPOTIFY' && recommendedTracks.reqParams.queryType=='seed_artists'">
+      	<h2>SPOTIFY TRACK RECOMMENDATION RESULTS</h2>
+      	
+      	<div ng-if="recommendedTracks.tracks.length==0"><h3>Unable to get any recommendation from SPOTIFY</h3></div>
+      	
+      	<div ng-repeat="track in recommendedTracks.tracks">
+	    <div style="border: 1px solid #ccc; border-radius: 5px; padding: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center;">
+  		<img src="{{track.albuArt}}" alt="Album Art" style="width: 120px; height: 120px; object-fit: cover; margin-right: 30px;">
+  		<div>
+    	<h3 style="margin: 0; font-size: 1.5rem;">{{track.trackName}}</h3>
+    	<p style="margin: 5px 0 0; font-size: 1.2rem;"> {{track.artist}}</p>
+<!--     	<button style="background-color: #f44336; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; margin-top: 15px;">Play</button> -->
+		 <a href="{{track.previewUrl}}" target="_blank" style="display: block; margin-top: 20px; background-color: green; color: #fff; text-decoration: none; text-align: center; padding: 10px; border-radius: 5px;">Check on Spotify</a>
+		
+  		</div>
+	 </div>
+	 </div>
+	 </div>
+	 <div ng-if="recommendedTracks.reqParams.thirdPartyType=='LASTFM'">
+      	<h2>LASTFM TRACK RECOMMENDATION RESULTS</h2>
+      	<div ng-if="recommendedTracks.tracks.length==0"><h3>Unable to get any recommendation from Last FM</h3></div>
+      	<div ng-repeat="track in recommendedTracks.tracks">
+	    <div style="border: 1px solid #ccc; border-radius: 5px; padding: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center;">
+  		<img src="img/last-fm-album-art.png" alt="Album Art" style="width: 120px; height: 120px; object-fit: cover; margin-right: 30px;">
+  		<div>
+    	<h3 style="margin: 0; font-size: 1.5rem;">{{track.trackName}}</h3>
+    	<p style="margin: 5px 0 0; font-size: 1.2rem;"> {{track.artist}}</p>
+<!--     	<button style="background-color: #f44336; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; margin-top: 15px;">Play</button> -->
+		 <a href="{{track.trackUrl}}" target="_blank" style="display: block; margin-top: 20px; background-color: red; color: #fff; text-decoration: none; text-align: center; padding: 10px; border-radius: 5px;">Check on LASTFM</a>
+		
+  		</div>
+	 </div>
+	 </div>
+	 </div>
+</div>
+
+
+<div class="big-loader-container row" ng-show="!playlist">
+  <div class="big-loader">
+  </div>
+</div>

@@ -1,0 +1,60 @@
+<h3>Scanned directories</h3>
+<table class="table table-striped" ng-show="directories.length > 0">
+  <thead>
+  <tr>
+    <th>Location</th>
+    <th class="text-center" style="width: 8%;">Active</th>
+    <th class="text-center" style="width: 8%;">Valid</th>
+    <th class="text-center" style="width: 8%;">Writable</th>
+    <th class="text-center" style="width: 8%;"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="directory in directories">
+    <td>{{ directory.location }}</td>
+    <td class="text-center">
+      <span class="glyphicon glyphicon-ok text-success" ng-show="directory.active"></span>
+    </td>
+    <td class="text-center">
+      <span class="glyphicon glyphicon-ok text-success" ng-show="directory.valid"></span>
+      <span class="glyphicon glyphicon-remove text-danger" ng-show="!directory.valid" tooltip="No music will be scanned from this directory" tooltip-append-to-body="true"></span>
+    </td>
+    <td class="text-center">
+      <span class="glyphicon glyphicon-ok text-success" ng-show="directory.writable"></span>
+      <span class="glyphicon glyphicon-remove text-danger" ng-show="!directory.writable" tooltip="Album arts won't be copied in album folders and ID3 tagging won't work" tooltip-append-to-body="true"></span>
+    </td>
+    <td class="text-center">
+      <button class="btn btn-default" title="Delete this directory" ng-click="deleteDirectory(directory)">
+        <span class="glyphicon glyphicon-trash"></span>
+      </button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<p class="text-center" ng-show="directories.length == 0">
+  No directory
+</p>
+
+<h3>Add a directory to scan</h3>
+<form novalidate role="form" name="editForm" ng-click="editForm.submitted = true">
+  <div class="row">
+    <div class="col-sm-10">
+      <div class="form-group" ng-class="{ 'has-error': !editForm.location.$valid && editForm.submitted }">
+        <label for="inputLocation" class="sr-only">Location</label>
+        <input type="text" class="form-control" id="inputLocation" name="location" placeholder="Location" required ng-model="directory.location">
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <button type="submit" class="btn btn-primary btn-block" ng-click="addDirectory()" ng-disabled="!editForm.$valid">
+        <span class="glyphicon glyphicon-plus"></span>
+        Add
+      </button>
+    </div>
+  </div>
+</form>
+
+<h3>Rescan all directories</h3>
+<button class="btn btn-primary" ng-click="rescan()">
+  <span class="glyphicon glyphicon-refresh"></span>
+  Rescan
+</button>

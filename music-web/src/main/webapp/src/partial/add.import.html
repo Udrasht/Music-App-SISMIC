@@ -1,0 +1,88 @@
+<div class="row">
+  <div class="col-md-12">
+    <h3>
+      Add imported music <small>to my collection</small>
+      <div class="btn-group pull-right">
+        <button class="btn btn-default" ng-click="refresh()" title="Refresh">
+          <span class="glyphicon glyphicon-refresh"></span>
+        </button>
+        <button class="btn btn-primary" ng-click="moveAllFiles()">
+          <span class="glyphicon glyphicon-ok"></span> Add all
+        </button>
+      </div>
+    </h3>
+
+    <form name="tagForm">
+      <table class="table" ng-show="files.length > 0">
+        <tr>
+          <th style="width: 10%;"><span class="btn-link" ng-click="guessOrder()">#</span></th>
+          <th style="width: 20%;">Album artist</th>
+          <th style="width: 20%;">Album</th>
+          <th style="width: 20%;">Artist</th>
+          <th style="width: 20%;">Title</th>
+          <th style="width: 5%;"></th>
+          <th style="width: 5%;"></th>
+        </tr>
+        <tr ng-repeat-start="file in files">
+          <td colspan="7">{{ file.file }}</td>
+        </tr>
+        <tr ng-repeat-end>
+          <td>
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="#" ng-model="file.order" />
+            </div>
+          </td>
+          <td>
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Album artist" ng-model="file.albumArtist"
+                     typeahead="artist for artist in artists | filter:$viewValue | limitTo: 8" />
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button" ng-click="copyMetadata('albumArtist', file)" ng-if="$first">
+                  <span class="glyphicon glyphicon-share-alt"></span>
+                </button>
+              </span>
+            </div>
+          </td>
+          <td>
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Album" ng-model="file.album"
+                     typeahead="album for album in albums | filter:$viewValue | limitTo: 8" />
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button" ng-click="copyMetadata('album', file)" ng-if="$first">
+                  <span class="glyphicon glyphicon-share-alt"></span>
+                </button>
+              </span>
+            </div>
+          </td>
+          <td>
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Artist" ng-model="file.artist"
+                     typeahead="artist for artist in artists | filter:$viewValue | limitTo: 8" />
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button" ng-click="copyMetadata('artist', file)" ng-if="$first">
+                  <span class="glyphicon glyphicon-share-alt"></span>
+                </button>
+              </span>
+            </div>
+          </td>
+          <td>
+            <input type="text" class="form-control" placeholder="Title" ng-model="file.title" />
+          </td>
+          <td>
+            <button class="btn btn-default" ng-click="moveFile(file)" ng-disabled="isLoading">
+              <span class="glyphicon glyphicon-ok"></span>
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-default" ng-click="deleteFile(file)" ng-disabled="isLoading">
+              <span class="glyphicon glyphicon-remove"></span>
+            </button>
+          </td>
+        </tr>
+      </table>
+    </form>
+    <p class="text-center" ng-show="files.length == 0">
+      No imported files
+    </p>
+  </div>
+</div>

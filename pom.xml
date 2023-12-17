@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.sismics.music</groupId>
+  <artifactId>music-parent</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0-SNAPSHOT</version>
+
+  <name>Music Parent</name>
+
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <!-- Dependencies version (external) -->
+    <org.apache.commons.commons-compress.version>1.5</org.apache.commons.commons-compress.version>
+    <commons-lang.commons-lang.version>2.6</commons-lang.commons-lang.version>
+    <commons-io.commons-io.version>2.1</commons-io.commons-io.version>
+    <com.google.guava.guava.version>15.0</com.google.guava.guava.version>
+    <log4j.log4j.version>1.2.16</log4j.log4j.version>
+    <org.slf4j.version>1.6.4</org.slf4j.version>
+    <org.slf4j.jcl-over-slf4j.version>1.6.6</org.slf4j.jcl-over-slf4j.version>
+    <junit.junit.version>4.11</junit.junit.version>
+    <com.h2database.h2.version>1.4.184</com.h2database.h2.version>
+    <com.mchange.c3p0.version>0.9.5-pre6</com.mchange.c3p0.version>
+    <org.jdbi.jdbi.version>2.51</org.jdbi.jdbi.version>
+    <org.glassfish.jersey.version>2.22.2</org.glassfish.jersey.version>
+    <org.mindrot.jbcrypt>0.3m</org.mindrot.jbcrypt>
+    <org.subethamail.subethasmtp.version>3.1.6</org.subethamail.subethasmtp.version>
+    <org.subethamail.subethasmtp-wiser.version>1.2</org.subethamail.subethasmtp-wiser.version>
+    <org.apache.lucene.version>4.2.0</org.apache.lucene.version>
+    <jgoodies.forms.version>1.0.5</jgoodies.forms.version>
+    <org.bitlet.weupnp.version>0.1.2</org.bitlet.weupnp.version>
+    <org.jaudiotagger.version>2.0.3</org.jaudiotagger.version>
+    <de.u-mass.lastfm-java.version>0.1.2</de.u-mass.lastfm-java.version>
+    <org.imgscalr.imgscalr-lib.version>4.2</org.imgscalr.imgscalr-lib.version>
+    <javax.servlet.javax.servlet-api.version>3.0.1</javax.servlet.javax.servlet-api.version>
+    <commons-dbcp.version>1.4</commons-dbcp.version>
+    <joda-time.joda-time.version>2.2</joda-time.joda-time.version>
+    <org.atmosphere.atmosphere-runtime>2.2.5</org.atmosphere.atmosphere-runtime>
+
+    <!-- Plugins version -->
+    <org.apache.maven.plugins.maven-antrun-plugin.version>1.7</org.apache.maven.plugins.maven-antrun-plugin.version>
+    <org.apache.maven.plugins.maven-dependency-plugin.version>2.7</org.apache.maven.plugins.maven-dependency-plugin.version>
+    <org.apache.maven.plugins.maven-eclipse-plugin.version>2.8</org.apache.maven.plugins.maven-eclipse-plugin.version>
+    <org.apache.maven.plugins.maven-jar-plugin.version>2.4</org.apache.maven.plugins.maven-jar-plugin.version>
+    <org.apache.maven.plugins.maven-release-plugin.version>2.4.1</org.apache.maven.plugins.maven-release-plugin.version>
+    <org.apache.maven.plugins.maven-resources-plugin.version>2.6</org.apache.maven.plugins.maven-resources-plugin.version>
+    <org.apache.maven.plugins.maven-war-plugin.version>2.2</org.apache.maven.plugins.maven-war-plugin.version>
+    <org.codehaus.mojo.rpm-maven-plugin.version>2.1-alpha-2</org.codehaus.mojo.rpm-maven-plugin.version>
+    <org.codehaus.mojo.nsis-maven-plugin.version>1.0-SNAPSHOT</org.codehaus.mojo.nsis-maven-plugin.version>
+    <org.codehaus.mojo.osxappbundle-maven-plugin.version>1.0-alpha-2</org.codehaus.mojo.osxappbundle-maven-plugin.version>
+    <org.eclipse.jetty.jetty-maven-plugin.version>9.4.46.v20220331</org.eclipse.jetty.jetty-maven-plugin.version>
+    <org.vafer.jdeb.version>1.0.1</org.vafer.jdeb.version>
+    <com.samaxes.maven.minify-maven-plugin.version>1.7</com.samaxes.maven.minify-maven-plugin.version>
+  </properties> 
+  
+  <scm>
+    <connection>scm:git:https://github.com/sismics/music.git</connection>
+    <developerConnection>scm:git:https://github.com/music/music.git</developerConnection>
+    <url>scm:git:https://github.com/sismics/music.git</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>${org.apache.maven.plugins.maven-antrun-plugin.version}</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>${org.apache.maven.plugins.maven-dependency-plugin.version}</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-eclipse-plugin</artifactId>
+        <version>${org.apache.maven.plugins.maven-eclipse-plugin.version}</version>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>${org.apache.maven.plugins.maven-jar-plugin.version}</version>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>${org.apache.maven.plugins.maven-release-plugin.version}</version>
+        <configuration>
+          <tagNameFormat>@{project.version}</tagNameFormat>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>${org.apache.maven.plugins.maven-resources-plugin.version}</version>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>${org.apache.maven.plugins.maven-war-plugin.version}</version>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>${org.eclipse.jetty.jetty-maven-plugin.version}</version>
+      </plugin>
+      
+      <plugin>
+        <groupId>com.samaxes.maven</groupId>
+        <artifactId>minify-maven-plugin</artifactId>
+        <version>${com.samaxes.maven.minify-maven-plugin.version}</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.vafer</groupId>
+        <artifactId>jdeb</artifactId>
+        <version>${org.vafer.jdeb.version}</version>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>rpm-maven-plugin</artifactId>
+        <version>${org.codehaus.mojo.rpm-maven-plugin.version}</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>nsis-maven-plugin</artifactId>
+        <version>${org.codehaus.mojo.nsis-maven-plugin.version}</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>osxappbundle-maven-plugin</artifactId>
+        <version>${org.codehaus.mojo.osxappbundle-maven-plugin.version}</version>
+      </plugin>
+    </plugins>
+  </build>
+        
+  <modules>
+    <module>music-core</module>
+    <module>music-web-common</module>
+    <module>music-web</module>
+  </modules>
+  
+  <profiles>
+    <profile>
+      <id>prod</id>
+      <modules>
+        <module>music-agent</module>
+        <module>music-distribution-standalone</module>
+        <module>music-distribution-debian</module>
+        <module>music-distribution-redhat</module>
+        <module>music-distribution-mac</module>
+        <module>music-distribution-windows</module>
+      </modules>
+    </profile>
+    
+    <profile>
+      <id>windows</id>
+      <activation>
+        <os>
+          <family>windows</family>
+        </os>
+      </activation>
+      <properties>
+        <nsis.home>C:\Program Files (x86)\nsis</nsis.home>
+        <launch4j.home>C:\app\launch4j</launch4j.home>
+      </properties>
+    </profile>
+    <profile>
+      <id>linux</id>
+      <activation>
+        <os>
+          <family>unix</family>
+        </os>
+      </activation>
+      <properties>
+        <nsis.home>/usr/bin</nsis.home>
+        <launch4j.home>/opt/launch4j</launch4j.home>
+      </properties>
+    </profile>
+  </profiles>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.sismics.music</groupId>
+        <artifactId>music-core</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+    
+      <dependency>
+        <groupId>com.sismics.music</groupId>
+        <artifactId>music-web-common</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+    
+      <dependency>
+        <groupId>com.sismics.music</groupId>
+        <artifactId>music-web-common</artifactId>
+        <type>test-jar</type>
+        <version>${project.version}</version>
+      </dependency>
+    
+      <dependency>
+        <groupId>com.sismics.music</groupId>
+        <artifactId>music-web</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+    
+      <dependency>
+        <groupId>com.sismics.music</groupId>
+        <artifactId>music-distribution-standalone</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+    
+      <dependency>
+        <groupId>com.sismics.music</groupId>
+        <artifactId>music-agent</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+    
+      <dependency>
+        <groupId>com.sismics.music</groupId>
+        <artifactId>music-distribution-debian</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+    
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-compress</artifactId>
+        <version>${org.apache.commons.commons-compress.version}</version>
+      </dependency>
+            
+      <dependency>
+        <groupId>commons-lang</groupId>
+        <artifactId>commons-lang</artifactId>
+        <version>${commons-lang.commons-lang.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons-io.commons-io.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>${com.google.guava.guava.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+        <version>${log4j.log4j.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-log4j12</artifactId>
+        <version>${org.slf4j.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${org.slf4j.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>jcl-over-slf4j</artifactId>
+        <version>${org.slf4j.jcl-over-slf4j.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.junit.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.mindrot</groupId>
+        <artifactId>jbcrypt</artifactId>
+        <version>${org.mindrot.jbcrypt}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>${javax.servlet.javax.servlet-api.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.glassfish.jersey.containers</groupId>
+        <artifactId>jersey-container-servlet</artifactId>
+        <version>${org.glassfish.jersey.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>org.glassfish.jersey.media</groupId>
+        <artifactId>jersey-media-json-processing</artifactId>
+        <version>${org.glassfish.jersey.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.glassfish.jersey.media</groupId>
+        <artifactId>jersey-media-multipart</artifactId>
+        <version>${org.glassfish.jersey.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.glassfish.jersey.test-framework.providers</groupId>
+        <artifactId>jersey-test-framework-provider-external</artifactId>
+        <version>${org.glassfish.jersey.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.glassfish.jersey.test-framework.providers</groupId>
+        <artifactId>jersey-test-framework-provider-grizzly2</artifactId>
+        <version>${org.glassfish.jersey.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>org.glassfish.jersey.containers</groupId>
+        <artifactId>jersey-container-grizzly2-servlet</artifactId>
+        <version>${org.glassfish.jersey.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>com.h2database</groupId>
+        <artifactId>h2</artifactId>
+        <version>${com.h2database.h2.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.mchange</groupId>
+        <artifactId>c3p0</artifactId>
+        <version>${com.mchange.c3p0.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.jdbi</groupId>
+        <artifactId>jdbi</artifactId>
+        <version>${org.jdbi.jdbi.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>commons-dbcp</groupId>
+        <artifactId>commons-dbcp</artifactId>
+        <version>${commons-dbcp.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>joda-time</groupId>
+        <artifactId>joda-time</artifactId>
+        <version>${joda-time.joda-time.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.subethamail</groupId>
+        <artifactId>subethasmtp-wiser</artifactId>
+        <version>${org.subethamail.subethasmtp-wiser.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>com.google.oauth-client</groupId>
+        <artifactId>google-oauth-client</artifactId>
+        <version>${com.google.oauth-client.google-oauth-client.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.google.apis</groupId>
+        <artifactId>google-api-services-oauth2</artifactId>
+        <version>${com.google.apis.google-api-services-oauth2.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.google.http-client</groupId>
+        <artifactId>google-http-client-jackson2</artifactId>
+        <version>${com.google.http-client.google-http-client-jackson2.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.ccil.cowan.tagsoup</groupId>
+        <artifactId>tagsoup</artifactId>
+        <version>${org.ccil.cowan.tagsoup.tagsoup.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.googlecode.owasp-java-html-sanitizer</groupId>
+        <artifactId>owasp-java-html-sanitizer</artifactId>
+        <version>${com.googlecode.owasp-java-html-sanitizer.owasp-java-html-sanitizer.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.lucene</groupId>
+        <artifactId>lucene-core</artifactId>
+        <version>${org.apache.lucene.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>org.apache.lucene</groupId>
+        <artifactId>lucene-analyzers-common</artifactId>
+        <version>${org.apache.lucene.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>org.apache.lucene</groupId>
+        <artifactId>lucene-queryparser</artifactId>
+        <version>${org.apache.lucene.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>org.apache.lucene</groupId>
+        <artifactId>lucene-highlighter</artifactId>
+        <version>${org.apache.lucene.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>jgoodies</groupId>
+        <artifactId>forms</artifactId>
+        <version>${jgoodies.forms.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>org.bitlet</groupId>
+        <artifactId>weupnp</artifactId>
+        <version>${org.bitlet.weupnp.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org</groupId>
+        <artifactId>jaudiotagger</artifactId>
+        <version>${org.jaudiotagger.version}</version>
+      </dependency>
+    
+      <dependency>
+        <groupId>de.u-mass</groupId>
+        <artifactId>lastfm-java</artifactId>
+        <version>${de.u-mass.lastfm-java.version}</version>
+      </dependency>
+
+      <dependency>
+          <groupId>org.imgscalr</groupId>
+          <artifactId>imgscalr-lib</artifactId>
+          <version>${org.imgscalr.imgscalr-lib.version}</version>
+      </dependency>
+      
+      <dependency>
+	      <groupId>org.atmosphere</groupId>
+	      <artifactId>atmosphere-runtime</artifactId>
+	      <version>${org.atmosphere.atmosphere-runtime}</version>
+	    </dependency>
+    </dependencies>
+  </dependencyManagement>
+</project>
